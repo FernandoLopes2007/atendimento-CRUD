@@ -42,6 +42,7 @@ namespace atendimento_CRUD
 
                     case "4":
                         Console.WriteLine("\nAlterar Dados\n");
+                        AtualizarPaciente();
                         break;
 
                     case "q":
@@ -101,8 +102,27 @@ namespace atendimento_CRUD
                 string sqlDelete = "Delete from Paciente where CdPaciente = @cd";
                 var cmd = new MySqlCommand(sqlDelete, con);
                 cmd.Parameters.AddWithValue("@cd", cd);
-                int removidos = cmd.ExecuteNonQuery();
-                Console.WriteLine($"{removidos}");
+                Console.WriteLine("Paciente atendido");
+            }
+        }
+        static void AtualizarPaciente()
+        {
+            ListarPaciente();
+            Console.WriteLine("Digite o ID do paciente a ser alterado");
+            int cd = int.Parse(Console.ReadLine());
+            Console.WriteLine("Digite o novo nome");
+            string nome = Console.ReadLine();
+            Console.WriteLine("Digite o novo nível de prioridade");
+            int prioridade = int.Parse(Console.ReadLine());
+            using (var con = new MySqlConnection(conexao))
+            {
+                string sqlUpdate = "Update paciente set Nome = @nome, Prioridade = @prioridade where CdPaciente = @cd";
+                var cmd = new MySqlCommand(sqlUpdate, con);
+                cmd.Parameters.AddWithValue("@nome", nome);
+                cmd.Parameters.AddWithValue("@prioridade", prioridade);
+                cmd.Parameters.AddWithValue("cd", cd);
+                Console.WriteLine("Paciente alterado");
+
             }
         }
     }
