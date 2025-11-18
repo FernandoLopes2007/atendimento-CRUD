@@ -1,0 +1,10 @@
+create database atendimentoCRUD;
+use atendimentoCRUD;
+
+create table paciente
+(
+	CdPaciente int auto_increment,
+    Prioridade int not null,
+    Nome varchar(100) not null,
+    constraint pk_paciente primary key(CdPaciente)
+);
