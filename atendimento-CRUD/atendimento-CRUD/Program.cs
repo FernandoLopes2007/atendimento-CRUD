@@ -116,11 +116,13 @@ namespace atendimento_CRUD
             int prioridade = int.Parse(Console.ReadLine());
             using (var con = new MySqlConnection(conexao))
             {
+                con.Open();
                 string sqlUpdate = "Update paciente set Nome = @nome, Prioridade = @prioridade where CdPaciente = @cd";
                 var cmd = new MySqlCommand(sqlUpdate, con);
                 cmd.Parameters.AddWithValue("@nome", nome);
                 cmd.Parameters.AddWithValue("@prioridade", prioridade);
                 cmd.Parameters.AddWithValue("cd", cd);
+                cmd.ExecuteNonQuery();
                 Console.WriteLine("Paciente alterado");
 
             }
